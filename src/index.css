@@ -518,12 +518,12 @@ body {
 }
 
 /* Navigation */
-#navbar {
+.navbar-fixed {
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
@@ -551,57 +551,110 @@ body {
 .nav-items {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 0.5rem;
 }
 
 .nav-link {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     font-weight: 500;
     position: relative;
     transition: all 0.3s ease;
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
 }
 
-.nav-link:hover,
+.nav-link i {
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #fff;
+    background: rgba(168, 85, 247, 0.15);
+}
+
 .nav-link.active {
-    color: #a855f7;
-    background: rgba(168, 85, 247, 0.1);
+    color: #fff;
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.2));
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);
 }
 
-.nav-link::before {
+.nav-link.active i {
+    color: #a855f7;
+}
+
+.nav-link::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: 0;
     left: 50%;
     width: 0;
     height: 2px;
     background: linear-gradient(45deg, #a855f7, #ec4899);
     transition: all 0.3s ease;
     transform: translateX(-50%);
+    border-radius: 2px;
 }
 
-.nav-link:hover::before,
-.nav-link.active::before {
-    width: 80%;
+.nav-link.active::after {
+    width: 60%;
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
 }
 
 /* Language Switcher */
 .language-switcher {
     display: flex;
     gap: 0.5rem;
+    margin-left: 0.5rem;
 }
 
 .lang-btn {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: 500;
+    font-size: 0.85rem;
 }
 
 .lang-btn:hover,
@@ -610,6 +663,21 @@ body {
     border-color: #a855f7;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(168, 85, 247, 0.3);
+}
+
+/* Page Content & Transitions */
+.page-content {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-enter {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page-exit {
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 /* Section Styles */
@@ -1500,16 +1568,50 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-items {
+        display: none;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 0.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        animation: slideDown 0.3s ease;
+    }
+
+    .nav-items.show {
+        display: flex;
+    }
+
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 0.8rem 1.2rem;
+        border-radius: 12px;
+        font-size: 1rem;
+    }
+
+    .language-switcher {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        justify-content: center;
+    }
+
     .nav-container {
         padding: 0 1rem;
-        flex-wrap: wrap;
-        height: auto;
-        min-height: 70px;
-    }
-    
-    .nav-items {
-        gap: 1rem;
-        flex-wrap: wrap;
+        height: 70px;
     }
     
     .main-title {
