@@ -153,6 +153,73 @@ export const projectData = {
       'asset/Cisco (3).png',
       'asset/Cisco (4).png'
     ]
+  },
+  project8: {
+    title: { en: 'B-DRAIN', id: 'B-DRAIN' },
+    description: {
+      en: 'A web-based geographic information system (Web GIS) geodashboard designed to visualize and analyze flood-prone points and drainage infrastructure in Bekasi City. Built using React.js, Leaflet.js, and GeoJSON. Key features include multilayer spatial visualization, data filtering, buffer analysis, and proximity analysis to identify priority areas for infrastructure maintenance, providing an interactive, accessible tool for non-technical stakeholders without the need for desktop GIS software.',
+      id: 'Sebuah sistem informasi geografis berbasis web (Web GIS) geodashboard yang dirancang untuk memvisualisasikan dan menganalisis titik-titik rawan banjir serta infrastruktur drainase di Kota Bekasi. Dibangun menggunakan React.js, Leaflet.js, dan GeoJSON. Fitur-fitur utamanya mencakup visualisasi spasial multilayer, pemfilteran data, analisis buffer, dan analisis kedekatan untuk mengidentifikasi area prioritas untuk pemeliharaan infrastruktur, menyediakan alat interaktif dan mudah diakses bagi pemangku kepentingan non-teknis tanpa memerlukan perangkat lunak GIS desktop.'
+    },
+    technologies: ['React.js', 'Leaflet.js', 'GeoJSON'],
+    features: [
+      { title: { en: 'Multilayer Spatial Visualization', id: 'Visualisasi Spasial Multilayer' }, description: { en: 'Visualize multiple data layers such as flood-prone points, drainage infrastructure, and government administrative boundaries on an interactive map.', id: 'Menampilkan berbagai lapisan data seperti titik rawan banjir, infrastruktur drainase, dan batas administrasi pemerintahan dalam satu peta interaktif.' } },
+      { title: { en: 'Data Filtering', id: 'Data Filtering' }, description: { en: 'Filter and display data based on specific criteria such as flood risk levels or infrastructure types, allowing users to focus on relevant information.', id: 'Memfilter dan menampilkan data berdasarkan kriteria tertentu seperti tingkat risiko banjir atau jenis infrastruktur, sehingga memungkinkan pengguna untuk fokus pada informasi yang relevan.' } },
+      { title: { en: 'Buffer Analysis', id: 'Buffer Analysis' }, description: { en: 'Analyze spatial relationships between data points to identify areas within a certain distance from flood sources or drainage infrastructure.', id: 'Menganalisis hubungan spasial antar titik data untuk mengidentifikasi area dalam jarak tertentu dari sumber banjir atau infrastruktur drainase.' } },
+      { title: { en: 'Proximity Analysis', id: 'Proximity Analysis' }, description: { en: 'Analyze the proximity between flood-prone points and drainage infrastructure to identify areas that require immediate attention and maintenance.', id: 'Menganalisis kedekatan antara titik rawan banjir dan infrastruktur drainase untuk mengidentifikasi area yang memerlukan perhatian dan pemeliharaan segera.' } }
+    ],
+    images: [
+      'asset/B-DRAIN (1).png',
+      'asset/B-DRAIN (2).png',
+      'asset/B-DRAIN (3).png'
+    ],
+    githubLink: 'https://github.com/ImamMahatirHasibuan/B-DRAIN',
+    demoLink: 'https://b-drain.vercel.app'
+  },
+  project9: {
+    title: { en: 'Tripnesia', id: 'Tripnesia' },
+    description: {
+      en: 'A comprehensive web-based open trip booking platform designed to connect travelers with travel packages. Built using Laravel 11, Bootstrap, and JavaScript. Key features include a separated destination search and filter system, dynamic departure date scheduling with an admin dashboard, a structured booking workflow with automated PDF ticket generation, Midtrans payment gateway integration, and a dynamic customer testimonial management system.',
+      id: 'Sebuah platform reservasi open trip berbasis web yang dirancang untuk menghubungkan para pelancong dengan paket perjalanan. Dibangun menggunakan Laravel 11, Bootstrap, dan JavaScript. Fitur utamanya mencakup sistem pencarian dan pemfilteran destinasi yang terpisah, penjadwalan tanggal keberangkatan dinamis dengan dasbor admin, alur kerja pemesanan terstruktur dengan pembuatan tiket PDF otomatis, integrasi gateway pembayaran Midtrans, dan sistem manajemen testimoni pelanggan yang dinamis.'
+    },
+    technologies: ['Laravel 11', 'Bootstrap', 'JavaScript'],
+    features: [
+      { title: { en: 'Destination Search and Filter', id: 'Pencarian dan Filter Destinasi' }, description: { en: 'A separated destination search and filter system allows users to easily find and filter travel packages based on their preferences.', id: 'Sistem pencarian dan pemfilteran destinasi yang terpisah memungkinkan pengguna untuk dengan mudah menemukan dan memfilter paket perjalanan berdasarkan preferensi mereka.' } },
+      { title: { en: 'Dynamic Departure Date Scheduling', id: 'Penjadwalan Tanggal Keberangkatan Dinamis' }, description: { en: 'Filter and display data based on specific criteria such as flood risk levels or infrastructure types, allowing users to focus on relevant information.', id: 'Memfilter dan menampilkan data berdasarkan kriteria tertentu seperti tingkat risiko banjir atau jenis infrastruktur, sehingga memungkinkan pengguna untuk fokus pada informasi yang relevan.' } },
+      { title: { en: 'Structured Booking Workflow', id: 'Alur Kerja Pemesanan Terstruktur' }, description: { en: 'Analyze spatial relationships between data points to identify areas within a certain distance from flood sources or drainage infrastructure.', id: 'Menganalisis hubungan spasial antar titik data untuk mengidentifikasi area dalam jarak tertentu dari sumber banjir atau infrastruktur drainase.' } },
+      { title: { en: 'Automated PDF Ticket Generation', id: 'Pembuatan Tiket PDF Otomatis' }, description: { en: 'Analyze the proximity between flood-prone points and drainage infrastructure to identify areas that require immediate attention and maintenance.', id: 'Menganalisis kedekatan antara titik rawan banjir dan infrastruktur drainase untuk mengidentifikasi area yang memerlukan perhatian dan pemeliharaan segera.' } },
+      { title: { en: 'Midtrans Payment Gateway Integration', id: 'Integrasi Gateway Pembayaran Midtrans' }, description: { en: 'Analyze the proximity between flood-prone points and drainage infrastructure to identify areas that require immediate attention and maintenance.', id: 'Menganalisis kedekatan antara titik rawan banjir dan infrastruktur drainase untuk mengidentifikasi area yang memerlukan perhatian dan pemeliharaan segera.' } },
+      { title: { en: 'Dynamic Customer Testimonial Management System', id: 'Sistem Manajemen Testimoni Pelanggan Dinamis' }, description: { en: 'Analyze the proximity between flood-prone points and drainage infrastructure to identify areas that require immediate attention and maintenance.', id: 'Menganalisis kedekatan antara titik rawan banjir dan infrastruktur drainase untuk mengidentifikasi area yang memerlukan perhatian dan pemeliharaan segera.' } }
+    ],
+    images: [
+      'asset/Tripnesia (1).png',
+      'asset/Tripnesia (2).png',
+      'asset/Tripnesia (3).png'
+    ],
+    githubLink: 'https://github.com/ImamMahatirHasibuan/Tripnesia'
+  },
+  project10: {
+    title: { en: 'PMS', id: 'PMS' },
+    description: {
+      en: 'The PMS (Property Management System) project is a comprehensive web-based enterprise application engineered to automate and centralize daily building operations. By integrating an intuitive React front-end with a highly scalable Laravel REST API, the system seamlessly orchestrates cross-departmental workflows, including Security Patrols, Cleaning Logs, Engineering Tasks, and Tenant Complaints. The application features a real-time Unified Operational Feed and a dynamic Dashboard that instantly tracks Work Performance KPIs, Ticket SLAs, and continuous carry-over work lists. By transforming fragmented operational logs into accessible, data-driven visualizations, PMS ensures that modern building management is significantly more transparent, efficient, and highly responsive to tenant needs.',
+      id: 'Proyek PMS (Sistem Manajemen Properti) adalah aplikasi perusahaan berbasis web yang komprehensif yang dirancang untuk mengotomatisasi dan memusatkan operasi harian gedung. Dengan mengintegrasikan front-end React yang intuitif dengan Laravel REST API yang sangat skalabel, sistem ini secara mulus mengorkestrasi alur kerja lintas departemen, termasuk Patroli Keamanan, Catatan Kebersihan, Tugas Teknik, dan Keluhan Penyewa. Aplikasi ini menampilkan Umpan Operasional Terpadu waktu nyata dan Dasbor dinamis yang secara instan melacak KPI Kinerja Kerja, SLA Tiket, dan daftar tugas carry-over yang berkelanjutan. Dengan mengubah log operasional yang terfragmentasi menjadi visualisasi yang dapat diakses dan didorong oleh data, PMS memastikan bahwa pengelolaan gedung modern jauh lebih transparan, efisien, dan sangat responsif terhadap kebutuhan penyewa.'
+    },
+    technologies: ['Laravel 11', 'React', 'JavaScript', 'Bootstrap'],
+    features: [
+      { title: { en: 'Security Patrol Module', id: 'Modul Patroli Keamanan' }, description: { en: 'A separated destination search and filter system allows users to easily find and filter travel packages based on their preferences.', id: 'Sistem pencarian dan pemfilteran destinasi yang terpisah memungkinkan pengguna untuk dengan mudah menemukan dan memfilter paket perjalanan berdasarkan preferensi mereka.' } },
+      { title: { en: 'Cleaning Log Management Module', id: 'Modul Manajemen Catatan Kebersihan' }, description: { en: 'Filter and display data based on specific criteria such as flood risk levels or infrastructure types, allowing users to focus on relevant information.', id: 'Memfilter dan menampilkan data berdasarkan kriteria tertentu seperti tingkat risiko banjir atau jenis infrastruktur, sehingga memungkinkan pengguna untuk fokus pada informasi yang relevan.' } },
+      { title: { en: 'Engineering Task Management Module', id: 'Modul Manajemen Tugas Teknik' }, description: { en: 'Analyze spatial relationships between data points to identify areas within a certain distance from flood sources or drainage infrastructure.', id: 'Menganalisis hubungan spasial antar titik data untuk mengidentifikasi area dalam jarak tertentu dari sumber banjir atau infrastruktur drainase.' } },
+      { title: { en: 'Customer Complaint Management Module', id: 'Modul Manajemen Keluhan Pelanggan' }, description: { en: 'Analyze the proximity between flood-prone points and drainage infrastructure to identify areas that require immediate attention and maintenance.', id: 'Menganalisis kedekatan antara titik rawan banjir dan infrastruktur drainase untuk mengidentifikasi area yang memerlukan perhatian dan pemeliharaan segera.' } },
+      { title: { en: 'Unified Operational Feed', id: 'Umpan Operasional Terpadu' }, description: { en: 'Analyze the proximity between flood-prone points and drainage infrastructure to identify areas that require immediate attention and maintenance.', id: 'Menganalisis kedekatan antara titik rawan banjir dan infrastruktur drainase untuk mengidentifikasi area yang memerlukan perhatian dan pemeliharaan segera.' } },
+      { title: { en: 'Performance KPI', id: 'KPI Kinerja' }, description: { en: 'Analyze the proximity between flood-prone points and drainage infrastructure to identify areas that require immediate attention and maintenance.', id: 'Menganalisis kedekatan antara titik rawan banjir dan infrastruktur drainase untuk mengidentifikasi area yang memerlukan perhatian dan pemeliharaan segera.' } },
+      { title: { en: 'Ticket SLA', id: 'SLA Tiket' }, description: { en: 'Analyze the proximity between flood-prone points and drainage infrastructure to identify areas that require immediate attention and maintenance.', id: 'Menganalisis kedekatan antara titik rawan banjir dan infrastruktur drainase untuk mengidentifikasi area yang memerlukan perhatian dan pemeliharaan segera.' } },
+      { title: { en: 'Continuous Carry-over Work List', id: 'Daftar Tugas carry-over yang berkelanjutan' }, description: { en: 'Analyze the proximity between flood-prone points and drainage infrastructure to identify areas that require immediate attention and maintenance.', id: 'Menganalisis kedekatan antara titik rawan banjir dan infrastruktur drainase untuk mengidentifikasi area yang memerlukan perhatian dan pemeliharaan segera.' } }
+    ],
+    images: [
+      'asset/PMS (1).png',
+      'asset/PMS (2).png',
+      'asset/PMS (3).png'
+    ],
+    githubLink: 'https://github.com/ImamMahatirHasibuan/PMS'
   }
 };
 
@@ -164,7 +231,10 @@ export const projectCards = [
   { id: 'project4', img: 'asset/FakenewsDetection (1).png', title: 'FakeNews Detection', desc: 'Website that detects true or false news', github: 'https://github.com/ImamMahatirHasibuan/FakeNewsDetection' },
   { id: 'project5', img: 'asset/AbsensiWajah (1).png', title: 'Absensi Wajah', desc: 'Face Attendance System using Computer Vision', github: 'https://github.com/ImamMahatirHasibuan/AbsensiWajah' },
   { id: 'project6', img: 'asset/FoodBridge (1).png', title: 'FoodBridge', desc: 'food bridge website to those in need', github: 'https://github.com/ImamMahatirHasibuan/FoodBridge' },
-  { id: 'project7', img: 'asset/Cisco (2).png', title: 'Router', desc: 'Router and Subnetting use Cisco', github: null, demo: null }
+  { id: 'project7', img: 'asset/Cisco (2).png', title: 'Router', desc: 'Router and Subnetting use Cisco', github: null, demo: null },
+  { id: 'project8', img: 'asset/B-DRAIN (1).png', title: 'B-DRAIN', desc: 'Web-based GIS geodashboard for visualizing and analyzing flood-prone points and drainage infrastructure in Bekasi City.', github: 'https://github.com/ImamMahatirHasibuan/B-DRAIN', demo: 'https://b-drain.vercel.app' },
+  { id: 'project9', img: 'asset/Tripnesia (1).png', title: 'Tripnesia', desc: 'Web-based open trip booking platform', github: 'https://github.com/ImamMahatirHasibuan/Tripnesia' },
+  { id: 'project10', img: 'asset/PMS (1).png', title: 'PMS', desc: 'Property Management System', github: 'https://github.com/ImamMahatirHasibuan/PMS' }
 ];
 
 export const certificates = [
