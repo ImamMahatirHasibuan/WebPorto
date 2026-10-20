@@ -8,6 +8,7 @@ export default function GalaxyBackground() {
 
   return (
     <div id="galaxy-background">
+      <div className="galaxy-planets" aria-hidden="true" />
       <div id="stars" ref={starsRef}></div>
       <div id="nebula"></div>
       <div id="shooting-stars" ref={shootingRef}></div>

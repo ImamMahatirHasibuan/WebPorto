@@ -223,18 +223,26 @@ export const projectData = {
   }
 };
 
-// Project cards shown in the grid (thumbnail + short description + links)
+// Project category keys used by the Projects page filter.
+// Labels are localised in ProjectsSection via the language context.
+export const projectCategories = ['all', 'web', 'ml', 'gis', 'other'];
+
+// Project cards shown in the grid (thumbnail + short description + category).
+// NOTE: GitHub/Demo links for the cards are sourced at render time from
+// `projectData[id]` (the authoritative record) so the grid never shows a
+// placeholder or out-of-sync URL. The `category` field is metadata for the
+// filter and reflects the actual nature of each project.
 export const projectCards = [
-  { id: 'project1', img: 'asset/E-commerce (1).png', title: 'E-Commerce Platform', desc: 'E-commerce web front end with attractive web design', github: 'https://github.com/imam/ecommerce', demo: 'https://web-ecommerce-beta.vercel.app/AboutPage.html' },
-  { id: 'project2', img: 'asset/LearnHub (1).png', title: 'LearnHub', desc: 'Responsive learning website with many features', github: 'https://github.com/ImamMahatirHasibuan/LearnHub', demo: 'https://hci-kelas.vercel.app/' },
-  { id: 'project3', img: 'asset/EmotionDetection.jpg', title: 'Emotion Detection', desc: 'Web-based platform for real-time human emotion detection.', github: 'https://github.com/ImamMahatirHasibuan/EmotionDetection' },
-  { id: 'project4', img: 'asset/FakenewsDetection (1).png', title: 'FakeNews Detection', desc: 'Website that detects true or false news', github: 'https://github.com/ImamMahatirHasibuan/FakeNewsDetection' },
-  { id: 'project5', img: 'asset/AbsensiWajah (1).png', title: 'Absensi Wajah', desc: 'Face Attendance System using Computer Vision', github: 'https://github.com/ImamMahatirHasibuan/AbsensiWajah' },
-  { id: 'project6', img: 'asset/FoodBridge (1).png', title: 'FoodBridge', desc: 'food bridge website to those in need', github: 'https://github.com/ImamMahatirHasibuan/FoodBridge' },
-  { id: 'project7', img: 'asset/Cisco (2).png', title: 'Router', desc: 'Router and Subnetting use Cisco', github: null, demo: null },
-  { id: 'project8', img: 'asset/B-DRAIN (1).png', title: 'B-DRAIN', desc: 'Web-based GIS geodashboard for visualizing and analyzing flood-prone points and drainage infrastructure in Bekasi City.', github: 'https://github.com/ImamMahatirHasibuan/B-DRAIN', demo: 'https://b-drain.vercel.app' },
-  { id: 'project9', img: 'asset/Tripnesia (1).png', title: 'Tripnesia', desc: 'Web-based open trip booking platform', github: 'https://github.com/ImamMahatirHasibuan/Tripnesia' },
-  { id: 'project10', img: 'asset/PMS (1).png', title: 'PMS', desc: 'Property Management System', github: 'https://github.com/ImamMahatirHasibuan/PMS' }
+  { id: 'project1', img: 'asset/E-commerce (1).png', title: 'E-Commerce Platform', desc: 'E-commerce web front end with attractive web design', category: 'web' },
+  { id: 'project2', img: 'asset/LearnHub (1).png', title: 'LearnHub', desc: 'Responsive learning website with many features', category: 'web' },
+  { id: 'project3', img: 'asset/EmotionDetection.jpg', title: 'Emotion Detection', desc: 'Web-based platform for real-time human emotion detection.', category: 'ml' },
+  { id: 'project4', img: 'asset/FakenewsDetection (1).png', title: 'FakeNews Detection', desc: 'Website that detects true or false news', category: 'ml' },
+  { id: 'project5', img: 'asset/AbsensiWajah (1).png', title: 'Absensi Wajah', desc: 'Face Attendance System using Computer Vision', category: 'ml' },
+  { id: 'project6', img: 'asset/FoodBridge (1).png', title: 'FoodBridge', desc: 'food bridge website to those in need', category: 'web' },
+  { id: 'project7', img: 'asset/Cisco (2).png', title: 'Router', desc: 'Router and Subnetting use Cisco', category: 'other' },
+  { id: 'project8', img: 'asset/B-DRAIN (1).png', title: 'B-DRAIN', desc: 'Web-based GIS geodashboard for visualizing and analyzing flood-prone points and drainage infrastructure in Bekasi City.', category: 'gis' },
+  { id: 'project9', img: 'asset/Tripnesia (1).png', title: 'Tripnesia', desc: 'Web-based open trip booking platform', category: 'web' },
+  { id: 'project10', img: 'asset/PMS (1).png', title: 'PMS', desc: 'Property Management System', category: 'web' }
 ];
 
 export const certificates = [
@@ -245,30 +253,82 @@ export const certificates = [
   { img: 'asset/CertifCBasic.png', title: 'C# Basic Certification' },
   { img: 'asset/PythonBasic.png', title: 'Python Basic Certification' },
   { img: 'asset/SQLbasic.png', title: 'SQL Basic Certification' },
-  { img: 'asset/JS-Basic.png', title: 'JS Basic Certification' }
+  { img: 'asset/JS-Basic.png', title: 'JS Basic Certification' },
+  { img: 'asset/B.Inggris.jpg', title: 'B.Inggris Certification'}
 ];
 
 export const educationList = [
-  { name: 'SDS IT Mutiara', years: '2011-2016' },
-  { name: 'SMPS IT Mutiara', years: '2017-2019' },
-  { name: 'SMAS Cendana', years: '2020-2023' },
-  { name: 'Binus University', years: '2023-Present' }
+  {
+    name: 'Binus University',
+    years: '2023-Present',
+    current: true,
+    level: { en: 'Undergraduate Degree', id: 'Pendidikan Tinggi (S1)' },
+    major: { en: 'Computer Science (Software Engineering)', id: 'Teknik Informatika (Software Engineering)' }
+  },
+  {
+    name: 'SMAS Cendana',
+    years: '2020-2023',
+    current: false,
+    level: { en: 'Senior High School', id: 'Sekolah Menengah Atas' },
+    major: { en: 'Science / Mathematics & Natural Sciences', id: 'MIPA (Matematika & IPA)' }
+  },
+  {
+    name: 'SMPS IT Mutiara',
+    years: '2017-2019',
+    current: false,
+    level: { en: 'Junior High School', id: 'Sekolah Menengah Pertama' }
+  },
+  {
+    name: 'SDS IT Mutiara',
+    years: '2011-2016',
+    current: false,
+    level: { en: 'Primary School', id: 'Sekolah Dasar' }
+  }
 ];
 
+export const skillsData = {
+  programmingLanguages: [
+    { name: 'JavaScript', icon: 'fab fa-js-square', tag: 'Core' },
+    { name: 'Python', icon: 'fab fa-python', tag: 'Data & AI' },
+    { name: 'Java', icon: 'fab fa-java', tag: 'OOP' },
+    { name: 'PHP', icon: 'fab fa-php', tag: 'Backend' },
+    { name: 'C', icon: 'fas fa-code', tag: 'Systems' },
+    { name: 'C++', icon: 'fas fa-code', tag: 'Systems' }
+  ],
+  frameworks: [
+    { name: 'Laravel', icon: 'fab fa-laravel', tag: 'Fullstack' },
+    { name: 'Flask', icon: 'fas fa-pepper-hot', tag: 'Microframework' }
+  ],
+  librariesAndTools: [
+    { name: 'React', icon: 'fab fa-react', tag: 'UI Library' },
+    { name: 'Tailwind CSS', icon: 'fab fa-css3', tag: 'Styling' },
+    { name: 'Bootstrap', icon: 'fab fa-bootstrap', tag: 'UI Kit' },
+    { name: 'Leaflet.js', icon: 'fas fa-map-marked-alt', tag: 'Web GIS' },
+    { name: 'Git', icon: 'fab fa-git-alt', tag: 'VCS' },
+    { name: 'Figma', icon: 'fab fa-figma', tag: 'UI/UX' },
+    { name: 'Cisco Packet Tracer', icon: 'fas fa-network-wired', tag: 'Network' }
+  ],
+  webAndDatabase: [
+    { name: 'HTML5', icon: 'fab fa-html5', tag: 'Markup' },
+    { name: 'CSS3', icon: 'fab fa-css3-alt', tag: 'Styling' },
+    { name: 'MySQL', icon: 'fas fa-database', tag: 'Database' }
+  ]
+};
+
+// Backward compatibility export
 export const skillsList = [
-  { icon: 'fab fa-html5', name: 'HTML' },
-  { icon: 'fab fa-css3-alt', name: 'CSS' },
-  { icon: 'fab fa-js-square', name: 'JavaScript' },
-  { icon: 'fab fa-python', name: 'Python' },
-  { icon: 'fab fa-java', name: 'Java' },
-  { icon: 'fas fa-database', name: 'MySQL' },
-  { icon: 'fas fa-code', name: 'C' },
-  { icon: 'fas fa-code', name: 'C++' }
+  ...skillsData.programmingLanguages,
+  ...skillsData.frameworks,
+  ...skillsData.librariesAndTools,
+  ...skillsData.webAndDatabase
 ];
 
 export const activities = [
   {
-    title: 'Aktivis Volli',
+    title: {
+      en: 'Volleyball Team Coordinator',
+      id: 'Aktivis Voli'
+    },
     images: ['asset/volli1.jpg', 'asset/volli2.jpg', 'asset/volli3.jpg'],
     desc: {
       en: 'Coordinated volleyball training sessions, ensuring activities were well-structured, skills improved, and team members maintained motivation and strong cooperation.',
@@ -276,7 +336,10 @@ export const activities = [
     }
   },
   {
-    title: 'Jakarta Recycle Center',
+    title: {
+      en: 'Jakarta Recycle Center',
+      id: 'Jakarta Recycle Center'
+    },
     images: ['asset/JRC1.jpg', 'asset/JRC2.jpg', 'asset/JRC3.jpg'],
     desc: {
       en: 'Contributed to recycling plastic waste into useful products, supporting waste reduction efforts and raising public awareness on environmental sustainability.',
@@ -284,7 +347,10 @@ export const activities = [
     }
   },
   {
-    title: 'Pembuatan Biopori Recyclub',
+    title: {
+      en: 'Recyclub Biopore Hole Initiative',
+      id: 'Pembuatan Biopori Recyclub'
+    },
     images: ['asset/Biopori1.jpg', 'asset/Biopori2.jpg', 'asset/Biopori3.jpg'],
     desc: {
       en: 'Initiated biopore hole projects to reduce waterlogging, manage organic waste effectively, and encourage greater environmental awareness among community members.',
@@ -292,7 +358,10 @@ export const activities = [
     }
   },
   {
-    title: 'Wawancara para guru',
+    title: {
+      en: 'Educator & Spiritual Values Interview',
+      id: 'Wawancara Para Guru'
+    },
     images: ['asset/CBAGAMA.jpg', 'asset/CBAGAMA2.jpg', 'asset/CBAGAMA3.jpg'],
     desc: {
       en: 'Conducted interviews with teachers to explore how spiritual values influence workplace culture, discipline, and professional attitudes in organizational environments.',
@@ -300,7 +369,10 @@ export const activities = [
     }
   },
   {
-    title: 'Sosialisasi ke siswa disekolah',
+    title: {
+      en: 'Pancasila Character Building in Schools',
+      id: 'Sosialisasi Nilai Pancasila di Sekolah'
+    },
     images: ['asset/CBPancasila.jpg', 'asset/CBPancasila2.jpg', 'asset/CBPancasila3.jpg'],
     desc: {
       en: 'Delivered sessions to students about practicing Pancasila values, promoting unity, responsibility, and strong moral character in everyday personal and social life.',

@@ -29,11 +29,14 @@ export default function ProjectModal({ projectId, onClose }) {
 
   if (!project) return null;
 
+  const images = project.images || [];
+  const hasMultiple = images.length > 1;
+
   const changeImage = (direction) => {
     setImageIndex((prev) => {
       let next = prev + direction;
-      if (next >= project.images.length) next = 0;
-      if (next < 0) next = project.images.length - 1;
+      if (next >= images.length) next = 0;
+      if (next < 0) next = images.length - 1;
       return next;
     });
   };
@@ -43,15 +46,35 @@ export default function ProjectModal({ projectId, onClose }) {
   };
 
   return (
-    <div id="projectModal" className="modal" style={{ display: 'block' }} onClick={handleOverlayClick}>
+    <div
+      id="projectModal"
+      className="modal"
+      style={{ display: 'block' }}
+      onClick={handleOverlayClick}
+      role="dialog"
+      aria-modal="true"
+      aria-label={project.title[lang]}
+    >
       <div className="modal-content">
-        <span className="close close-modal" onClick={onClose}>&times;</span>
+        <button className="close close-modal" onClick={onClose} aria-label={t({ en: 'Close', id: 'Tutup' })}>
+          &times;
+        </button>
+
         <div className="modal-project">
+          {/* Header */}
           <div className="modal-header">
             <h2>{project.title[lang]}</h2>
             <div className="project-meta">
-              <span><i className="fas fa-code"></i> {project.technologies.length} Technologies</span>
-              <span><i className="fas fa-image"></i> {project.images.length} Screenshots</span>
+              <span>
+                <i className="fas fa-code" aria-hidden="true"></i>{' '}
+                {project.technologies.length}{' '}
+                {t({ en: 'Technologies', id: 'Teknologi' })}
+              </span>
+              <span>
+                <i className="fas fa-image" aria-hidden="true"></i>{' '}
+                {images.length}{' '}
+                {t({ en: 'Screenshots', id: 'Tangkapan Layar' })}
+              </span>
             </div>
             <div className="project-tech">
               {project.technologies.map((tech) => (
@@ -60,30 +83,74 @@ export default function ProjectModal({ projectId, onClose }) {
             </div>
           </div>
 
-          <div className="modal-gallery">
-            <div className="modal-gallery-main">
-              <img src={project.images[imageIndex]} alt={project.title[lang]} />
-              <button className="modal-gallery-nav prev" onClick={() => changeImage(-1)}>&#10094;</button>
-              <button className="modal-gallery-nav next" onClick={() => changeImage(1)}>&#10095;</button>
+          {/* Two-column body on desktop: gallery + info */}
+          <div className="modal-body">
+            <div className="modal-gallery">
+              <div className="modal-gallery-main">
+                <img src={images[imageIndex]} alt={`${project.title[lang]} — ${imageIndex + 1}`} />
+                {hasMultiple && (
+                  <>
+                    <button
+                      className="modal-gallery-nav prev"
+                      onClick={() => changeImage(-1)}
+                      aria-label={t({ en: 'Previous image', id: 'Gambar sebelumnya' })}
+                    >
+                      &#10094;
+                    </button>
+                    <button
+                      className="modal-gallery-nav next"
+                      onClick={() => changeImage(1)}
+                      aria-label={t({ en: 'Next image', id: 'Gambar berikutnya' })}
+                    >
+                      &#10095;
+                    </button>
+                    <span className="modal-gallery-counter">
+                      {imageIndex + 1} / {images.length}
+                    </span>
+                  </>
+                )}
+              </div>
+              {hasMultiple && (
+                <div className="modal-gallery-thumbs">
+                  {images.map((img, i) => (
+                    <img
+                      key={img}
+                      src={img}
+                      alt={`Screenshot ${i + 1}`}
+                      className={i === imageIndex ? 'active' : ''}
+                      onClick={() => setImageIndex(i)}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
-            <div className="modal-gallery-thumbs">
-              {project.images.map((img, i) => (
-                <img
-                  key={img}
-                  src={img}
-                  alt={`Screenshot ${i + 1}`}
-                  className={i === imageIndex ? 'active' : ''}
-                  onClick={() => setImageIndex(i)}
-                />
-              ))}
+
+            <div className="modal-info">
+              <div className="modal-description">
+                <h3>{t({ en: 'Project Overview', id: 'Gambaran Proyek' })}</h3>
+                <p>{project.description[lang]}</p>
+              </div>
+
+              {(project.githubLink && projectId !== 'project7') || project.demoLink ? (
+                <div className="modal-links">
+                  {project.githubLink && projectId !== 'project7' && (
+                    <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="modal-link">
+                      <i className="fab fa-github" aria-hidden="true"></i>
+                      {t({ en: 'View Source Code', id: 'Lihat Kode Sumber' })}
+                    </a>
+                  )}
+                  {project.demoLink && (
+                    <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="modal-link modal-link--accent">
+                      <i className="fas fa-external-link-alt" aria-hidden="true"></i>
+                      {t({ en: 'Live Demo', id: 'Demo Langsung' })}
+                    </a>
+                  )}
+                </div>
+              ) : null}
             </div>
           </div>
 
-          <div className="modal-description">
-            <h3>{t({ en: 'Project Overview', id: 'Gambaran Proyek' })}</h3>
-            <p>{project.description[lang]}</p>
-          </div>
-
+          {/* Features */}
           <div className="modal-features">
             {project.features.map((feature) => (
               <div className="feature-item" key={feature.title.en}>
@@ -91,21 +158,6 @@ export default function ProjectModal({ projectId, onClose }) {
                 <p>{feature.description[lang]}</p>
               </div>
             ))}
-          </div>
-
-          <div className="modal-links">
-            {project.githubLink && projectId !== 'project7' && (
-              <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="modal-link">
-                <i className="fab fa-github"></i>
-                {t({ en: 'View Source Code', id: 'Lihat Kode Sumber' })}
-              </a>
-            )}
-            {project.demoLink && (
-              <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="modal-link">
-                <i className="fas fa-external-link-alt"></i>
-                {t({ en: 'Live Demo', id: 'Demo Langsung' })}
-              </a>
-            )}
           </div>
         </div>
       </div>

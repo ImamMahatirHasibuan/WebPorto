@@ -45,11 +45,9 @@ export function useGalaxyBackground(starsRef, shootingRef) {
     // ========================================
     // 1. BINTANG STATIS (Static Twinkling Stars)
     // ========================================
-    // Membuat 100 bintang statis yang berkedip (twinkle)
-    // KENAPA 100 bukan 200?
-    // - 200 terlalu berat untuk performa, 100 sudah cukup terlihat bagus
-    // - Setiap elemen DOM = memory + CSS animation thread
-    const numberOfStars = 100;
+    // Membuat bintang statis yang berkedip (twinkle)
+    // Kepadatan dikurangi karena galaxy-planets.png sudah berisi bintang dan nebula.
+    const numberOfStars = 48;
     const staticStars = [];
     for (let i = 0; i < numberOfStars; i++) {
       const star = document.createElement('div');
@@ -87,7 +85,7 @@ export function useGalaxyBackground(starsRef, shootingRef) {
     // - Cukup untuk memberi kesan "hidup" tanpa membebani performa
     // - Lebih sedikit dari bintang statis karena animasi bergerak lebih berat
     const movingStars = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 6; i++) {
       const star = document.createElement('div');
       star.className = 'moving-star';
       // Ukuran random 1-4px

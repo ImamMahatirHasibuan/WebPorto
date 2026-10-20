@@ -31,7 +31,7 @@ import { useRef, useState, useCallback, useEffect } from 'react';
  * @param {number} damping   - Redaman (0-1). Makin besar = makin cepat berhenti memantul
  * @returns {{ pos, bind, dragging }}
  */
-export function useElasticDrag({ maxPull = 130, stiffness = 0.18, damping = 0.8 } = {}) {
+export function useElasticDrag({ maxPull = 100, stiffness = 0.12, damping = 0.85 } = {}) {
   // STATE: posisi (x, y) yang di-render ke UI
   const [pos, setPos] = useState({ x: 0, y: 0 });
   // STATE: apakah sedang di-drag? (untuk ganti cursor)

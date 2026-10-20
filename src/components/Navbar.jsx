@@ -2,130 +2,209 @@
  * Navbar.jsx
  * ==========
  * Komponen navigasi utama yang fixed di atas halaman.
- * 
- * FITUR:
- * 1. 4 link navigasi (About, Projects, Certificates, Contact) dengan ikon
- * 2. Highlight halaman aktif dengan gradient background
- * 3. Tombol switch bahasa (EN/ID)
- * 4. Hamburger menu untuk tampilan mobile/responsive
- * 
- * KENAPA navigasi di-handle via props (activePage, onNavigate)?
- * - "Lifting state up" pattern: state halaman dikelola di App.jsx
- * - Navbar hanya MENAMPILKAN state dan MEMINTA perubahan via callback
- * - Ini membuat Navbar reusable dan mudah di-test
- * - Single source of truth: hanya App.jsx yang tahu halaman mana yang aktif
+ *
+ * STRUKTUR:
+ * - Desktop (> 768px): link navigasi + language switcher tampil inline (.nav-items).
+ * - Mobile (<= 768px): tombol hamburger membuka drawer kanan (.nav-drawer)
+ *   dengan overlay (.nav-overlay). Drawer punya header brand + tombol close,
+ *   daftar navigasi, dan segmented control EN/ID.
+ *
+ * KENAPA drawer dipisah dari .nav-items desktop?
+ * - Menghindari konflik state antara layout inline desktop dan panel mobile.
+ * - Desktop tidak pernah me-render overlay/drawer; mobile menyembunyikan
+ *   .nav-items via CSS. Satu sumber state (menuOpen) tetap dipakai keduanya.
+ *
+ * State halaman tetap dikelola di App.jsx (lifting state up). Navbar hanya
+ * menampilkan activePage dan meminta perubahan via onNavigate.
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useLanguage } from '../context/LanguageContext';
 
-// Array konfigurasi item navigasi
-// KENAPA pakai array bukan hardcode di JSX?
-// - Mudah ditambah/dikurangi menu tanpa ubah JSX structure
-// - Bisa di-map untuk render → kode DRY (Don't Repeat Yourself)
-// - Konsisten: setiap item punya struktur yang sama
 const NAV_ITEMS = [
   { id: 'about', en: 'About', id_: 'Tentang', icon: 'fas fa-user' },
   { id: 'projects', en: 'Projects', id_: 'Proyek', icon: 'fas fa-code' },
   { id: 'certificates', en: 'Certificates', id_: 'Sertifikat', icon: 'fas fa-certificate' },
   { id: 'contact', en: 'Contact', id_: 'Kontak', icon: 'fas fa-envelope' }
 ];
-// CATATAN: 'id_' (dengan underscore) karena 'id' sudah dipakai sebagai identifier
-// Tidak bisa pakai { id: 'about', id: 'Tentang' } — key duplikat!
 
-/**
- * @param {string} activePage - Halaman yang sedang aktif ('about'|'projects'|...)
- * @param {function} onNavigate - Callback saat user klik menu: onNavigate('projects')
- */
 export default function Navbar({ activePage, onNavigate }) {
-  const { lang, setLang } = useLanguage();
-  // State untuk toggle hamburger menu di mobile
+  const { lang, setLang, t } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
+  const closeBtnRef = useRef(null);
+  const hamburgerRef = useRef(null);
 
-  /**
-   * Handler klik navigasi
-   * - preventDefault: mencegah browser scroll ke anchor (#about, #projects, dll)
-   * - onNavigate: panggil callback dari App.jsx untuk ganti halaman
-   * - setMenuOpen(false): tutup menu mobile setelah navigasi
-   */
+  const closeMenu = () => setMenuOpen(false);
+
   const handleNavClick = (e, id) => {
     e.preventDefault();
     onNavigate(id);
-    setMenuOpen(false); // tutup hamburger menu jika terbuka
+    closeMenu();
   };
 
+  // Escape to close + body scroll lock while the mobile drawer is open.
+  // Listeners are cleaned up on unmount / state change.
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleKey = (e) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    document.addEventListener('keydown', handleKey);
+    document.body.style.overflow = 'hidden';
+
+    // Move focus into the drawer for keyboard users.
+    closeBtnRef.current?.focus();
+
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
+  // Return focus to the hamburger button after the drawer closes.
+  useEffect(() => {
+    if (!menuOpen) hamburgerRef.current?.blur?.();
+  }, [menuOpen]);
+
+  const label = (item) => (lang === 'id' ? item.id_ : item.en);
+
   return (
-    // KENAPA className bukan id?
-    // - id hanya boleh 1 per halaman, className bisa multiple
-    // - Lebih mudah di-style dan di-override dengan CSS
+    <>
     <nav id="navbar" className="navbar-fixed">
       <div className="nav-container">
-        {/* Logo — klik untuk kembali ke About */}
-        <h1 className="logo" onClick={(e) => handleNavClick(e, 'about')} style={{ cursor: 'pointer' }}>
+        <h1
+          className="logo"
+          onClick={(e) => handleNavClick(e, 'about')}
+          style={{ cursor: 'pointer' }}
+        >
           Imam Mahatir Hasibuan
         </h1>
 
-        {/* ====== HAMBURGER BUTTON (Mobile Only) ====== */}
-        {/* KENAPA hamburger manual bukan library?
-            - Hanya butuh 3 span + CSS animation
-            - Library (react-hamburger) = ~5KB untuk fitur yang bisa dibuat 10 baris
-            - Kontrol penuh atas animasi open/close */}
-        <button
-          className={`hamburger${menuOpen ? ' open' : ''}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu" // aksesibilitas: screen reader bisa baca tombol ini
-        >
-          {/* 3 garis horizontal — saat 'open':
-              - Garis 1: rotate 45° (menjadi \)
-              - Garis 2: opacity 0 (hilang)
-              - Garis 3: rotate -45° (menjadi /)
-              Hasilnya: ☰ → ✕ */}
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        {/* ====== MENU ITEMS ====== */}
-        {/* Class 'show' ditambahkan saat hamburger open (mobile)
-            Di desktop: selalu terlihat via CSS (display: flex) */}
-        <div className={`nav-items${menuOpen ? ' show' : ''}`}>
+        {/* ====== DESKTOP NAV (inline) ====== */}
+        <div className="nav-items">
           {NAV_ITEMS.map((item) => (
             <a
               key={item.id}
-              href={`#${item.id}`}  // fallback href jika JS disabled
-              // Class 'active' ditambahkan ke halaman yang sedang aktif
-              // CSS: gradient background + glow effect
+              href={`#${item.id}`}
               className={`nav-link${activePage === item.id ? ' active' : ''}`}
               onClick={(e) => handleNavClick(e, item.id)}
             >
-              {/* Ikon Font Awesome di samping teks */}
-              <i className={item.icon}></i>
-              {/* Teks label — otomatis switch bahasa via lang state */}
-              <span>{lang === 'id' ? item.id_ : item.en}</span>
+              <i className={item.icon} aria-hidden="true"></i>
+              <span>{label(item)}</span>
             </a>
           ))}
 
-          {/* ====== LANGUAGE SWITCHER ====== */}
-          {/* KENAPA 2 tombol bukan dropdown?
-              - Hanya 2 opsi (EN/ID) — tombol lebih cepat diakses
-              - Dropdown membutuhkan 2 klik (buka → pilih), tombol cuma 1 klik
-              - Visual lebih jelas: langsung terlihat bahasa mana yang aktif */}
           <div className="language-switcher">
             <button
               className={`lang-btn${lang === 'en' ? ' active' : ''}`}
               onClick={() => setLang('en')}
+              aria-pressed={lang === 'en'}
             >
               EN
             </button>
             <button
               className={`lang-btn${lang === 'id' ? ' active' : ''}`}
               onClick={() => setLang('id')}
+              aria-pressed={lang === 'id'}
             >
               ID
             </button>
           </div>
         </div>
+
+        {/* ====== HAMBURGER (mobile only) ====== */}
+        <button
+          ref={hamburgerRef}
+          className={`hamburger${menuOpen ? ' open' : ''}`}
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label={menuOpen
+            ? t({ en: 'Close navigation menu', id: 'Tutup menu navigasi' })
+            : t({ en: 'Open navigation menu', id: 'Buka menu navigasi' })}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-drawer"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </nav>
+
+    {/* ====== MOBILE OVERLAY + DRAWER ======
+        Rendered via portal to <body> so `position: fixed` resolves against the
+        viewport, not the navbar. The navbar uses backdrop-filter which would
+        otherwise become the containing block and trap these layers inside its
+        70px box (causing the page to show through below the panel). */}
+    {createPortal(
+      <>
+      <div
+        className={`nav-overlay${menuOpen ? ' show' : ''}`}
+        onClick={closeMenu}
+        aria-hidden="true"
+      />
+
+      <aside
+        id="mobile-drawer"
+        className={`nav-drawer${menuOpen ? ' show' : ''}`}
+        aria-hidden={!menuOpen}
+      >
+        <div className="nav-drawer__header">
+          <span className="nav-drawer__brand">Imam Mahatir Hasibuan</span>
+          <button
+            ref={closeBtnRef}
+            className="nav-drawer__close"
+            onClick={closeMenu}
+            aria-label={t({ en: 'Close menu', id: 'Tutup menu' })}
+          >
+            <i className="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <nav className="nav-drawer__nav" aria-label={t({ en: 'Mobile navigation', id: 'Navigasi mobile' })}>
+          {NAV_ITEMS.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className={`nav-drawer__link${activePage === item.id ? ' active' : ''}`}
+              onClick={(e) => handleNavClick(e, item.id)}
+              aria-current={activePage === item.id ? 'page' : undefined}
+              tabIndex={menuOpen ? 0 : -1}
+            >
+              <i className={item.icon} aria-hidden="true"></i>
+              <span>{label(item)}</span>
+            </a>
+          ))}
+        </nav>
+
+        <div className="nav-drawer__footer">
+          <span className="nav-drawer__footer-label">
+            {t({ en: 'Language', id: 'Bahasa' })}
+          </span>
+          <div className="nav-drawer__lang" role="group" aria-label={t({ en: 'Language', id: 'Bahasa' })}>
+            <button
+              className={`nav-drawer__lang-btn${lang === 'en' ? ' active' : ''}`}
+              onClick={() => setLang('en')}
+              aria-pressed={lang === 'en'}
+              tabIndex={menuOpen ? 0 : -1}
+            >
+              EN
+            </button>
+            <button
+              className={`nav-drawer__lang-btn${lang === 'id' ? ' active' : ''}`}
+              onClick={() => setLang('id')}
+              aria-pressed={lang === 'id'}
+              tabIndex={menuOpen ? 0 : -1}
+            >
+              ID
+            </button>
+          </div>
+        </div>
+      </aside>
+      </>,
+      document.body
+    )}
+    </>
   );
 }
