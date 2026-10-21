@@ -119,7 +119,7 @@ function PortfolioApp() {
         return (
           <>
             <CertificatesSection
-              onOpenCertificate={(img, title) => setActiveCertificate({ img, title })}
+              onOpenCertificate={(cert) => setActiveCertificate(cert)}
             />
             <CvSection />
           </>
@@ -151,7 +151,11 @@ function PortfolioApp() {
 
       {/* Modal project — overlay fullscreen untuk detail project */}
       {/* Dirender di luar <main> agar tidak ikut transisi halaman */}
-      <ProjectModal projectId={activeProjectId} onClose={() => setActiveProjectId(null)} />
+      <ProjectModal
+        projectId={activeProjectId}
+        onClose={() => setActiveProjectId(null)}
+        onNavigate={(id) => setActiveProjectId(id)}
+      />
 
       {/* Modal sertifikat — overlay fullscreen untuk lihat sertifikat besar */}
       <CertificateModal certificate={activeCertificate} onClose={() => setActiveCertificate(null)} />

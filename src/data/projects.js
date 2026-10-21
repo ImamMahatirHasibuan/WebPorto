@@ -245,16 +245,109 @@ export const projectCards = [
   { id: 'project10', img: 'asset/PMS (1).png', title: 'PMS', desc: 'Property Management System', category: 'web' }
 ];
 
+// Certificate categories used by the Certificates page filter.
+// Labels are localised in CertificatesSection via the language context.
+export const certificateCategories = ['all', 'programming', 'web', 'data-ai', 'language'];
+
+// Certificate records. `img` and `title` are the original authoritative fields
+// and are left unchanged. `category` is metadata for the filter. `issuer` is set
+// only where the certificate name itself identifies the issuer (not invented);
+// omitted where unknown. `desc` is a short neutral bilingual summary derived
+// from the certificate name — no dates, grades, or issuers are fabricated.
 export const certificates = [
-  { img: 'asset/sERTIFbelinguaA_page-0001.jpg', title: 'Beelingua Course A Certification' },
-  { img: 'asset/SertifbelinguaB_page-0001.jpg', title: 'Beelingua Course B Certification' },
-  { img: 'asset/CertiMetaAI.jpg', title: 'Meta AI Seminar Certification' },
-  { img: 'asset/CertifJavaBasic.png', title: 'Java Basic Certification' },
-  { img: 'asset/CertifCBasic.png', title: 'C# Basic Certification' },
-  { img: 'asset/PythonBasic.png', title: 'Python Basic Certification' },
-  { img: 'asset/SQLbasic.png', title: 'SQL Basic Certification' },
-  { img: 'asset/JS-Basic.png', title: 'JS Basic Certification' },
-  { img: 'asset/B.Inggris.jpg', title: 'B.Inggris Certification'}
+  {
+    id: 'cert-beelingua-a',
+    img: 'asset/sERTIFbelinguaA_page-0001.jpg',
+    title: 'Beelingua Course A Certification',
+    category: 'language',
+    issuer: 'Beelingua',
+    desc: {
+      en: 'English language course completion (Basic User level).',
+      id: 'Penyelesaian kursus bahasa Inggris (tingkat Basic User).'
+    }
+  },
+  {
+    id: 'cert-beelingua-b',
+    img: 'asset/SertifbelinguaB_page-0001.jpg',
+    title: 'Beelingua Course B Certification',
+    category: 'language',
+    issuer: 'Beelingua',
+    desc: {
+      en: 'English language course completion (Independent User level).',
+      id: 'Penyelesaian kursus bahasa Inggris (tingkat Independent User).'
+    }
+  },
+  {
+    id: 'cert-meta-ai',
+    img: 'asset/CertiMetaAI.jpg',
+    title: 'Meta AI Seminar Certification',
+    category: 'data-ai',
+    issuer: 'Meta',
+    desc: {
+      en: 'Participation in a seminar on artificial intelligence.',
+      id: 'Partisipasi dalam seminar bertema kecerdasan buatan.'
+    }
+  },
+  {
+    id: 'cert-java-basic',
+    img: 'asset/CertifJavaBasic.png',
+    title: 'Java Basic Certification',
+    category: 'programming',
+    desc: {
+      en: 'Fundamentals of programming with the Java language.',
+      id: 'Dasar-dasar pemrograman dengan bahasa Java.'
+    }
+  },
+  {
+    id: 'cert-csharp-basic',
+    img: 'asset/CertifCBasic.png',
+    title: 'C# Basic Certification',
+    category: 'programming',
+    desc: {
+      en: 'Fundamentals of programming with the C# language.',
+      id: 'Dasar-dasar pemrograman dengan bahasa C#.'
+    }
+  },
+  {
+    id: 'cert-python-basic',
+    img: 'asset/PythonBasic.png',
+    title: 'Python Basic Certification',
+    category: 'programming',
+    desc: {
+      en: 'Fundamentals of programming with the Python language.',
+      id: 'Dasar-dasar pemrograman dengan bahasa Python.'
+    }
+  },
+  {
+    id: 'cert-sql-basic',
+    img: 'asset/SQLbasic.png',
+    title: 'SQL Basic Certification',
+    category: 'data-ai',
+    desc: {
+      en: 'Fundamentals of querying and managing data with SQL.',
+      id: 'Dasar-dasar kueri dan pengelolaan data dengan SQL.'
+    }
+  },
+  {
+    id: 'cert-js-basic',
+    img: 'asset/JS-Basic.png',
+    title: 'JS Basic Certification',
+    category: 'web',
+    desc: {
+      en: 'Fundamentals of web programming with JavaScript.',
+      id: 'Dasar-dasar pemrograman web dengan JavaScript.'
+    }
+  },
+  {
+    id: 'cert-english',
+    img: 'asset/B.Inggris.jpg',
+    title: 'English Certification',
+    category: 'language',
+    desc: {
+      en: 'English language proficiency certification.',
+      id: 'Sertifikasi kemampuan bahasa Inggris.'
+    }
+  }
 ];
 
 export const educationList = [
